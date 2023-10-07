@@ -1,0 +1,34 @@
+namespace: "default"
+
+appName:
+  model: 'model-serve'
+  web: 'web-serve'
+  redis: 'redis-db'
+
+models:
+  gpt_model: "gpt2"
+  tokenizer: "gpt2"
+
+configMap: 
+  modelServer: "model-config-v1.0"
+  redis: "redis-config-v1.0"
+
+secretKey:
+  redis: "redis-secret-v1.0"
+  db_password: "bWVnYV9zZWNyZXRfa2V5Cg=="
+
+image:
+  modelServer: "default/emlo-model-server:assignment17-v1"
+  webServer: "default/emlo-web-server:assignment17-v1"
+  redis: "redis:7.2.1"
+
+hostname: "mykube-app.com"
+
+persistentvolume:
+  pv:
+    volumeName: "redis-pv"
+    storageCapacity: "10Gi"
+
+  pvc:
+    claimName: "redis-pvc"
+    storageRequest: "5Gi"

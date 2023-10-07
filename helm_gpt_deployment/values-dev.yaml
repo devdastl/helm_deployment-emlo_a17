@@ -1,0 +1,12 @@
+namespace: "dev"
+
+appName:
+  model: 'model-serve-dev'
+  web: 'web-serve-dev'
+  redis: 'redis-db-dev'
+
+hostname: "mykube-app.com"
+
+persistentvolume:
+  pv:
+    volumeName: "redis-pv-dev"

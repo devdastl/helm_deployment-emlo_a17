@@ -1,0 +1,26 @@
+version: '3'
+services:
+  model-server:
+    image: default/emlo-model-server:assignment17-v1
+    environment:
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=testingpassword
+
+  redis-db:
+    image: redis:7.2.1
+    environment:
+      - REDIS_PASSWORD=testingpassword
+    command: ["redis-server", "--requirepass", "testingpassword"]
+
+
+  web-server:
+    image: default/emlo-web-server:assignment17-v1
+    environment:
+      - REDIS_HOST=redis-db
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=testingpassword
+      - MODEL_SERVER_URL=http://model-server:80
+
+    ports:
+      - "8050:80" # Expose the service on port 8050 to access it from outside

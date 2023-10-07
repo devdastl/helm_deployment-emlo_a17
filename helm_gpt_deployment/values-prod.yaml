@@ -1,0 +1,12 @@
+namespace: "prod"
+
+appName:
+  model: 'model-serve-prod'
+  web: 'web-serve-prod'
+  redis: 'redis-db-prod'
+
+hostname: "mykube-app-prod.com"
+
+persistentvolume:
+  pv:
+    volumeName: "redis-pv-prod"

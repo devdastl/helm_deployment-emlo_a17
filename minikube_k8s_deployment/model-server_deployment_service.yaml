@@ -1,0 +1,50 @@
+#GPT model-server deployment configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: model-server
+  template:
+    metadata:
+      labels:
+        app: model-server
+    spec:
+      containers:
+      - name: model-server
+        image: emlo_a17_model:v1
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "1000Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env:
+          - name: REDIS_HOST
+            value: redis-db-service
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_PASSWORD
+            value: aiwilltakeovertheworld
+          # - name: GPT_MODEL
+          #   value: gpt2
+          # - name: TOKENIZER_MODEL
+          #   value: gpt2
+
+---
+
+#GPT model-server service configuration 
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-server-service
+spec:
+  selector:
+    app: model-server
+  ports:
+  - port: 9000
+    targetPort: 80
