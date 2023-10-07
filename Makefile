@@ -11,10 +11,10 @@ help:
 
 build-images:
 	@echo "building docker image for web service"
-	cd web-server-gpt && docker build -t ${USERNAME}/${PROJECT}-web-server:${TAG} .
+	cd src/web-server-gpt && docker build -t ${USERNAME}/${PROJECT}-web-server:${TAG} .
 
 	@echo "building docker image for gpt model service"
-	cd model-server-gpt && docker build -t ${USERNAME}/${PROJECT}-model-server:${TAG} .
+	cd src/model-server-gpt && docker build -t ${USERNAME}/${PROJECT}-model-server:${TAG} .
 
 
 test-dockercompose:
