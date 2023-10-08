@@ -64,6 +64,8 @@ create-helm-deployment:
 	--values helm_gpt_deployment/values.yaml \
 	-f helm_gpt_deployment/values-dev.yaml
 
+	sleep 5s
+
 	@echo "starting helm deployment in prod namspace"
 	helm install gpt-server-prod helm_gpt_deployment/ \
 	--values helm_gpt_deployment/values.yaml \
