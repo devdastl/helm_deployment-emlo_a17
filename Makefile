@@ -55,8 +55,8 @@ kill-kubectl-deployment:
 
 create-namespace:
 	@echo "creating namespace dev & prod"
-	kubectl create namespace dev
-	kubectl create namespace prod
+	minikube kubectl -- create namespace dev
+	minikube kubectl -- create namespace prod
 
 create-helm-deployment:
 	@echo "starting helm deployment in dev namspace"
