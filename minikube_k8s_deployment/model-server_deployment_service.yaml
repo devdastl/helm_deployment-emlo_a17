@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: model-server
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: model-server
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: model-server
-        image: emlo_a17_model:v1
+        image: default/emlo-model-server:assignment17-v1
         imagePullPolicy: Never
         resources:
           limits:
