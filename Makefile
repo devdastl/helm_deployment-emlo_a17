@@ -41,16 +41,16 @@ push-to-minikube:
 	@echo "pushing redis-db image to minikube"
 	minikube image load redis:7.2.1
 
-kubectl-deployment:
+create-kubectl-deployment:
 	@echo "starting kubectl based deployment"
 	minikube kubectl -- apply -f minikube_k8s_deployment/
 
 kill-kubectl-deployment:
 	@echo "Killing kubectl based deployment"
-	kubectl delete all --all
-	kubectl delete ingress web-server-ingress
-	kubectl delete pvc redis-pvc
-	kubectl delete pv redis-pv
+	minikube kubectl -- delete all --all
+	minikube kubectl -- delete ingress web-server-ingress
+	minikube kubectl -- delete pvc redis-pvc
+	minikube kubectl -- delete pv redis-pv
 
 
 create-namespace:
@@ -63,6 +63,15 @@ create-helm-deployment:
 	helm install gpt-server-dev helm_gpt_deployment/ \
 	--values helm_gpt_deployment/values.yaml \
 	-f helm_gpt_deployment/values-dev.yaml
+
+	@echo "starting helm deployment in prod namspace"
+	helm install gpt-server-prod helm_gpt_deployment/ \
+	--values helm_gpt_deployment/values.yaml \
+	-f helm_gpt_deployment/values-prod.yaml
+
+kill-helm-deployment:
+	@echo "kill and removing helm dev and pro deployment"
+	helm uninstall gpt-server-dev gpt-server-prod
 
 
 
