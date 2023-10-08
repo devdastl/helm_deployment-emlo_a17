@@ -10,7 +10,7 @@ This project uses Helm to deploy three services:
 We will use two different namespace for two isolated deployment. This project uses Makefile to further simlipy imlementation.
 ## Deployment overview
 First lets go through the overview and flow of deployment. Below is the flow diagram representing our target deployment workflow:
-<img src="deploy_wf.png" alt= “” width="" height="">
+<img src="img/deploy_wf.png" alt= “” width="" height="">
 <br>
 
 Lets go through few important points:
@@ -55,6 +55,21 @@ Now lets go throught kubectl based deployment on single default namespace.
     - if you are on MAC then do the above and start minikube tunnel. `minikube tunnel`
 6. Once you are able to access same api page on `mykube-app.com`. You can kill and remove this deployment. Run this command to easily remove it `make kill-kubectl-deployment`. It will run series of commands to remove all resources.
 
-### 3. Deployment via Helm 
+NOTE: Model-server pods can take some time to start as it will download the selected model.
 
-### Output
+### 3. Deployment via Helm 
+Now lets go through Helm deployment on two different namespace i.e. dev and prod. Again we will be using make command to make the deployment easier.
+1. Create two namespace dev and prod. Run `make create-namespace`. This will create two namespaces.
+2. Now create the helm deployment from `helm_gpt_deployment/` directory. Run command `make create-helm-deployment`. This will create two deployments, one on dev and one on prod. Go through Makfile to know more on the commmands.
+3. Now check `mykube-app.com/docs` and run inference. You have to follow step-5 of kubectl deployment to add another domain name `mykube-app-prod.com` so that you can access prod deployment as well.
+4. Once done, you can kill the deployment by running `make kill-helm-deployment`.
+
+### Inference output
+Lest see how to use `mykube-app.com/docs` api page to perform inference.
+1. Access the API page `http://mykube-app.com/docs`. You will see below page.
+<img src="img/step-1.PNG" alt= “” width="" height="">
+2. Try out first post api and add your text as shown below.
+<img src="img/step-2.PNG" alt= “” width="" height="">
+3. Execute and see the output text.
+<img src="img/step-3.PNG" alt= “” width="" height="">
+4. You can try it with same input and inference will be much faster as the data is been cached for faster inferece.
