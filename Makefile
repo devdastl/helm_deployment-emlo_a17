@@ -41,6 +41,18 @@ push-to-minikube:
 	@echo "pushing redis-db image to minikube"
 	minikube image load redis:7.2.1
 
+kubectl-deployment:
+	@echo "starting kubectl based deployment"
+	minikube kubectl -- apply -f minikube_k8s_deployment/
+
+kill-kubectl-deployment:
+	@echo "Killing kubectl based deployment"
+	kubectl delete all --all
+	kubectl delete ingress web-server-ingress
+	kubectl delete pvc redis-pvc
+	kubectl delete pv redis-pv
+
+
 create-namespace:
 	@echo "creating namespace dev & prod"
 	kubectl create namespace dev
